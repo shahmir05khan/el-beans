@@ -137,6 +137,7 @@
   .hero{
     background: var(--color-kraft);
     min-height: 100vh;
+    min-height: 100svh;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -369,7 +370,11 @@
     font-size:16px;
     color: var(--color-ink);
     padding:8px 0;
+    background:none;
+    border:none;
     border-bottom:2px solid transparent;
+    cursor:pointer;
+    font-family:inherit;
   }
   .shop-side-nav button.active{ border-bottom-color: var(--color-ink); }
   .shop-side-nav button:hover{ opacity:.7; }
@@ -873,7 +878,14 @@
     .top-nav .pill-filled{ padding:10px 16px; font-size:13px; }
     .footer-grid{ grid-template-columns: 1fr; }
     .catering-inner{ flex-direction:column; align-items:flex-start; }
-    .hero{ padding-top:120px; }
+    .hero{ padding:120px 52px 90px; }
+    .hero-tagline{ font-size:15px; margin-top:16px; }
+    .hero-logo{ margin-bottom:20px; }
+    .shop-side-nav{ gap:16px; flex-wrap:wrap; }
+    input, select, textarea{ font-size:16px !important; }
+    .newsletter-popup{ padding:16px; }
+    .newsletter-head{ margin-bottom:6px; }
+    .newsletter-body p{ font-size:13px; margin-bottom:10px; }
     .hero-stripe{ width:32px; top:90px; bottom:60px; height:calc(100% - 150px); opacity:.9; }
     .hero-stripe.stripe-left{ left:8px; }
     .hero-stripe.stripe-right{ right:8px; }
