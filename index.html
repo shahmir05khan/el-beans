@@ -7,24 +7,24 @@
 <meta name="description" content="El Beans — speciality coffee roasted &amp; carted in Dubai. Beans, capsules, brewing gear, and coffee cart catering.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Caveat+Brush&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 <style>
   :root{
-    --color-ink: #000000;
-    --color-sage: #788c8c;
-    --color-cream: #ffffff;
+    /* Two-colour system, taken from the logo (ink) and the existing hero (kraft) */
+    --color-ink: #231f20;
     --color-kraft: #c9a879;
-    --color-lavender: #a697c6;
-    --color-moss: #5b9133;
-    --color-sunshine: #fff78f;
-    --color-sky: #d0eaf4;
-    --color-pink: #f5b5c8;
+
+    /* Single typeface, matched to the logo wordmark */
+    --font: 'Special Elite', 'Courier New', ui-monospace, monospace;
 
     --radius-pill: 100px;
     --radius-card: 20px;
-    --space: 4px;
     --gap: 20px;
     --section-pad: 80px;
+    --stripe-w: 56px;
+    --stripe-tile-h: 160px;
+    --border: 2px solid var(--color-ink);
+    --shadow-hard: 6px 6px 0 var(--color-ink);
   }
 
   *,*::before,*::after{ box-sizing: border-box; }
@@ -33,17 +33,39 @@
 
   body{
     margin:0;
-    font-family: 'Space Mono', 'IBM Plex Mono', ui-monospace, monospace;
+    padding: 0 var(--stripe-w);
+    position:relative;
+    font-family: var(--font);
     font-weight:400;
-    font-size:20px;
+    font-synthesis:none;
+    font-size:18px;
     line-height:1.5;
     color: var(--color-ink);
-    background: var(--color-ink);
+    background: var(--color-kraft);
   }
+
+  /* ===================== TRIBAL STRIPES (full document height, both edges) ===================== */
+  body::before,
+  body::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width: var(--stripe-w);
+    background-color: var(--color-kraft);
+    background-image: url("assets/stripe-tile.svg");
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    background-position: center top;
+    z-index:30;
+    pointer-events:none;
+  }
+  body::before{ left:0; border-right: var(--border); }
+  body::after{ right:0; border-left: var(--border); }
 
   img{ max-width:100%; display:block; }
 
-  button, input{ font-family: inherit; }
+  button, input, select, textarea{ font-family: inherit; }
 
   a{ color: inherit; text-decoration: none; }
 
@@ -73,10 +95,10 @@
 
   .pill-filled{
     background: var(--color-ink);
-    color: var(--color-cream);
+    color: var(--color-kraft);
     border: 2px solid var(--color-ink);
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
     padding: 14px 28px;
   }
   .pill-filled:hover{ transform: scale(1.04); }
@@ -84,33 +106,32 @@
   .pill-outline{
     background: transparent;
     color: var(--color-ink);
-    border: 1px solid var(--color-ink);
-    font-weight:400;
-    padding: 10px 20px;
+    border: 2px solid var(--color-ink);
+    padding: 8px 20px;
   }
-  .pill-outline:hover{ border-width:2px; }
+  .pill-outline:hover{ background: var(--color-ink); color: var(--color-kraft); }
 
   .card{
-    background: var(--color-cream);
+    background: var(--color-kraft);
+    border: var(--border);
     border-radius: var(--radius-card);
     padding: 20px;
-    border: none;
   }
 
   h1,h2,h3,p{ margin:0; }
+  h1,h2,h3,h4,h5{ font-weight:400; }
 
   .section-title{
-    font-size:24px;
+    font-size:26px;
     line-height:1.2;
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.08em;
     text-align:left;
   }
 
   .display{
     font-size:50px;
     line-height:1.2;
-    font-weight:700;
   }
 
   .btn-reset{
@@ -148,8 +169,11 @@
   }
 
   .wordmark{
-    font-family: 'Caveat Brush', cursive;
-    font-size: clamp(90px, 18vw, 210px);
+    font-family: var(--font);
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size: clamp(44px, 12vw, 190px);
     line-height:0.9;
     color: var(--color-ink);
     position:relative;
@@ -161,10 +185,9 @@
     position:relative;
     z-index:2;
     margin-top: 24px;
-    font-weight:700;
     text-transform:uppercase;
-    letter-spacing:normal;
-    font-size:20px;
+    letter-spacing:.08em;
+    font-size:18px;
     color: var(--color-ink);
     max-width: 560px;
   }
@@ -175,20 +198,7 @@
     width:90px;
     height:90px;
   }
-  .hero-hex.hex-1{ bottom:60px; left:110px; }
-
-  .hero-stripe{
-    position:absolute;
-    top:110px;
-    bottom:70px;
-    width:56px;
-    height:calc(100% - 180px);
-    object-fit:contain;
-    z-index:2;
-    pointer-events:none;
-  }
-  .hero-stripe.stripe-left{ left:20px; }
-  .hero-stripe.stripe-right{ right:20px; }
+  .hero-hex.hex-1{ bottom:60px; left:60px; }
 
   .hero-logo{
     position:relative;
@@ -219,7 +229,6 @@
     transform:translateX(-50%);
     z-index:2;
     font-size:14px;
-    font-weight:700;
     text-transform:uppercase;
     letter-spacing:2px;
     color: var(--color-ink);
@@ -228,7 +237,8 @@
 
   /* ===================== SHOP ===================== */
   .shop{
-    background: var(--color-sage);
+    background: var(--color-kraft);
+    border-top: var(--border);
     position:relative;
   }
 
@@ -248,21 +258,21 @@
     align-items:center;
     gap:10px;
   }
-  .sort-label{ font-weight:700; text-transform:uppercase; font-size:14px; }
+  .sort-label{ text-transform:uppercase; letter-spacing:.06em; font-size:14px; }
 
   select#sortSelect{
     border-radius: var(--radius-pill);
-    border: 1px solid var(--color-ink);
-    background: var(--color-cream);
+    border: 2px solid var(--color-ink);
+    background-color: var(--color-kraft);
     padding: 10px 36px 10px 20px;
     font-family:inherit;
     font-size:16px;
-    font-weight:700;
     color: var(--color-ink);
     appearance:none;
     -webkit-appearance:none;
     cursor:pointer;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='black'/></svg>");
+    /* data-URI cannot read CSS variables; fill matches --color-ink */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%23231f20'/></svg>");
     background-repeat:no-repeat;
     background-position: right 16px center;
     background-size:10px 6px;
@@ -273,9 +283,10 @@
     grid-template-columns: 360px 1fr;
     gap: 48px;
     align-items:center;
-    background: var(--color-cream);
+    background: var(--color-kraft);
     border-radius: var(--radius-card);
-    border: 2px solid var(--color-ink);
+    border: var(--border);
+    box-shadow: var(--shadow-hard);
     padding: 32px;
     margin-bottom: 56px;
   }
@@ -285,26 +296,24 @@
     width:100%;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius-card);
-    border: 1px solid rgba(0,0,0,0.15);
+    border: var(--border);
     display:block;
   }
 
   .featured-eyebrow{
-    font-weight:700;
     text-transform:uppercase;
     font-size:14px;
-    letter-spacing:1px;
-    opacity:.65;
+    letter-spacing:.1em;
+    opacity:.7;
     margin-bottom:8px;
   }
 
   .featured-name{
     font-size:32px;
-    font-weight:700;
     line-height:1.2;
     margin-bottom:12px;
   }
-  .featured-name span{ opacity:.6; }
+  .featured-name span{ opacity:.65; }
 
   .featured-desc{
     font-size:17px;
@@ -326,10 +335,10 @@
     font-size:16px;
   }
   .featured-meta strong{
-    font-weight:700;
+    font-weight:400;
     text-transform:uppercase;
     font-size:13px;
-    letter-spacing:.5px;
+    letter-spacing:.08em;
     min-width:140px;
   }
 
@@ -365,8 +374,8 @@
   }
   .shop-side-nav button{
     text-align:left;
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
     font-size:16px;
     color: var(--color-ink);
     padding:8px 0;
@@ -401,18 +410,18 @@
     width:100%;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius-card);
-    background:
-      repeating-linear-gradient(45deg, #e8e4dc, #e8e4dc 10px, #ddd8cc 10px, #ddd8cc 20px);
-    border: 1px solid rgba(0,0,0,0.15);
+    background: var(--color-kraft);
+    border: 2px dashed var(--color-ink);
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
     padding:20px;
-    color: rgba(0,0,0,0.55);
+    color: var(--color-ink);
+    opacity:.75;
     font-size:14px;
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
     line-height:1.4;
   }
 
@@ -423,13 +432,11 @@
     width:78px;
     height:78px;
     border-radius:100px;
-    color: var(--color-cream);
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
     font-size:11px;
-    font-weight:700;
     text-transform:uppercase;
     line-height:1.15;
     padding:6px;
@@ -437,13 +444,13 @@
     z-index:3;
     transform: rotate(-8deg);
   }
-  .stamp-kraft{ background: var(--color-kraft); color: var(--color-ink); }
-  .stamp-ink{ background: var(--color-ink); }
-  .stamp-pink{ background: var(--color-pink); color: var(--color-ink); }
+  /* two stamp looks only: solid ink, or kraft with ink outline */
+  .stamp-ink{ background: var(--color-ink); color: var(--color-kraft); }
+  .stamp-kraft,
+  .stamp-pink{ background: var(--color-kraft); color: var(--color-ink); }
 
   .product-name{
-    font-weight:700;
-    font-size:20px;
+    font-size:19px;
   }
 
   .product-price-pill{
@@ -456,21 +463,21 @@
 
   .enquire-btn{
     background: var(--color-ink);
-    color: var(--color-cream);
+    color: var(--color-kraft);
     border-radius: var(--radius-pill);
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
     font-size:14px;
     padding: 12px 20px;
-    border:none;
+    border:2px solid var(--color-ink);
     width:100%;
+    cursor:pointer;
   }
   .enquire-btn:hover{ transform: scale(1.02); }
 
   .no-results{
     grid-column: 1/-1;
     text-align:left;
-    font-weight:700;
     text-transform:uppercase;
     padding: 40px 0;
     opacity:.7;
@@ -495,20 +502,19 @@
     height:22px;
     border-radius: var(--radius-pill);
     border: 2px solid var(--color-ink);
-    background: var(--color-cream);
+    background: var(--color-kraft);
     overflow:hidden;
   }
   .progress-fill{
     width:38%;
     height:100%;
-    background: var(--color-lavender);
-    border-right: 2px solid var(--color-ink);
+    background: var(--color-ink);
   }
 
   /* floating shop UI */
   .shop-float{
     position:absolute;
-    top:80px;
+    top:12px;
     right:24px;
     display:flex;
     flex-direction:column;
@@ -519,7 +525,8 @@
     width:56px;
     height:56px;
     border-radius:50%;
-    background: var(--color-cream);
+    background: var(--color-kraft);
+    color: var(--color-ink);
     border: 2px solid var(--color-ink);
     display:flex;
     align-items:center;
@@ -543,14 +550,18 @@
     height:56px;
     border-radius: var(--radius-pill);
     border: 2px solid var(--color-ink);
-    background: var(--color-cream);
+    background: var(--color-kraft);
+    color: var(--color-ink);
     padding: 0 20px;
     font-family:inherit;
     font-size:16px;
   }
 
-  /* ===================== TESTIMONIALS ===================== */
-  .testimonials{ background: var(--color-sky); }
+  /* ===================== TESTIMONIALS (inverted: kraft on ink) ===================== */
+  .testimonials{
+    background: var(--color-ink);
+    color: var(--color-kraft);
+  }
   .testi-grid{
     display:grid;
     grid-template-columns: repeat(3,1fr);
@@ -559,14 +570,13 @@
   }
   .testi-card{
     border-radius: var(--radius-card);
+    border: 2px solid var(--color-kraft);
     padding:24px;
-    color: var(--color-cream);
+    color: var(--color-kraft);
     display:flex;
     flex-direction:column;
     gap:14px;
   }
-  .testi-card.moss{ background: var(--color-moss); }
-  .testi-card.kraft{ background: var(--color-kraft); color: var(--color-ink); }
 
   .testi-stars{
     display:flex;
@@ -575,21 +585,20 @@
   .star{
     width:18px;
     height:18px;
-    background: var(--color-sunshine);
+    background: var(--color-kraft);
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   }
-  .testi-card.kraft .star{ background: var(--color-pink); }
 
   .testi-name{
-    font-weight:700;
     text-decoration: underline;
+    text-underline-offset:4px;
   }
 
   .testi-text{ line-height:1.5; }
 
   /* ===================== CATERING CALLOUT ===================== */
   .catering{
-    background: var(--color-sunshine);
+    background: var(--color-kraft);
   }
   .catering-inner{
     display:flex;
@@ -601,12 +610,17 @@
   .catering-copy{ max-width:640px; }
   .catering-copy .section-title{ margin-bottom:16px; }
   .catering-copy p{ margin-bottom:24px; }
+  .catering-badge{ flex-shrink:0; }
+
+  /* shared inline-SVG colour hooks */
+  .svg-ink{ fill: var(--color-ink); }
+  .svg-kraft{ fill: var(--color-kraft); }
 
   /* ===================== MODAL (enquiry) ===================== */
   .overlay{
     position:fixed;
     inset:0;
-    background: rgba(0,0,0,0.4);
+    background: color-mix(in srgb, var(--color-ink) 55%, transparent);
     z-index:60;
     opacity:0;
     pointer-events:none;
@@ -617,12 +631,12 @@
   .close-x{
     width:36px;height:36px;
     border-radius:50%;
-    border:1px solid var(--color-ink);
+    border:2px solid var(--color-ink);
     background:transparent;
+    color: var(--color-ink);
     cursor:pointer;
-    font-weight:700;
   }
-  .close-x:hover{ background: var(--color-ink); color:var(--color-cream); }
+  .close-x:hover{ background: var(--color-ink); color:var(--color-kraft); }
 
   .order-success{
     text-align:left;
@@ -631,11 +645,10 @@
   .order-success .big-check{
     width:64px;height:64px;
     border-radius:50%;
-    background: var(--color-moss);
-    color:#fff;
+    background: var(--color-ink);
+    color: var(--color-kraft);
     display:flex;align-items:center;justify-content:center;
     font-size:32px;
-    font-weight:700;
     margin-bottom:20px;
   }
 
@@ -645,8 +658,9 @@
     top:50%; left:50%;
     transform: translate(-50%,-50%) scale(.95);
     width:min(480px, 92vw);
-    background: var(--color-cream);
-    border: 2px solid var(--color-ink);
+    background: var(--color-kraft);
+    border: var(--border);
+    box-shadow: var(--shadow-hard);
     border-radius: var(--radius-card);
     padding: 32px;
     z-index:61;
@@ -664,8 +678,8 @@
   }
   .modal-head h3{
     font-size:24px;
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
   }
 
   .field{
@@ -676,22 +690,23 @@
   }
   .field label{
     font-size:14px;
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
   }
   .field input{
     border-radius: var(--radius-pill);
-    border: 1px solid var(--color-ink);
+    border: 2px solid var(--color-ink);
+    color: var(--color-ink);
     padding: 12px 20px;
     font-family:inherit;
     font-size:16px;
-    background: var(--color-cream);
+    background: var(--color-kraft);
   }
-  .field input:focus{ outline:2px solid var(--color-lavender); }
+  .field input:focus{ outline:3px solid var(--color-ink); outline-offset:2px; }
   .field-error{
     font-size:13px;
-    color: #9f4920;
-    font-weight:700;
+    color: var(--color-ink);
+    text-decoration: underline;
     min-height:16px;
   }
 
@@ -699,14 +714,15 @@
   .newsletter-popup{
     position:fixed;
     bottom:24px;
-    right:24px;
+    right:calc(var(--stripe-w) + 16px);
     width:min(320px, 88vw);
-    background: var(--color-pink);
-    border: 2px solid var(--color-ink);
+    background: var(--color-kraft);
+    border: var(--border);
+    box-shadow: var(--shadow-hard);
     border-radius: var(--radius-card);
     padding: 22px;
     z-index:55;
-    transform: translateY(140%);
+    transform: translateY(160%);
     transition: transform .4s ease;
   }
   .newsletter-popup.show{ transform: translateY(0); }
@@ -718,13 +734,14 @@
     margin-bottom:10px;
   }
   .newsletter-head h4{
-    font-weight:700;
+    margin:0;
     text-transform:uppercase;
+    letter-spacing:.06em;
     font-size:18px;
   }
   .newsletter-close{
     background:none;border:none;cursor:pointer;
-    font-weight:700;
+    color: var(--color-ink);
     font-size:16px;
     line-height:1;
   }
@@ -736,23 +753,25 @@
   }
   .newsletter-form input{
     border-radius: var(--radius-pill);
-    border: 1px solid var(--color-ink);
-    background: var(--color-cream);
+    border: 2px solid var(--color-ink);
+    background: var(--color-kraft);
+    color: var(--color-ink);
     padding: 10px 18px;
     font-family:inherit;
     font-size:14px;
   }
   .newsletter-success{
     font-size:14px;
-    font-weight:700;
   }
 
   /* ===================== MARQUEE ===================== */
   .marquee{
     width:100%;
-    background: var(--color-ink);
-    color: var(--color-cream);
-    height:48px;
+    background: var(--color-kraft);
+    color: var(--color-ink);
+    border-top: var(--border);
+    border-bottom: var(--border);
+    height:52px;
     display:flex;
     align-items:center;
     overflow:hidden;
@@ -774,15 +793,15 @@
   .marquee-item{
     display:inline-flex;
     align-items:center;
-    font-weight:700;
     text-transform:uppercase;
+    letter-spacing:.06em;
     font-size:16px;
     padding: 0 20px;
   }
   .leaf{
     width:14px;
     height:14px;
-    background: var(--color-kraft);
+    background: var(--color-ink);
     border-radius: 0 100px 0 100px;
     display:inline-block;
     margin-right:20px;
@@ -812,7 +831,7 @@
   /* ===================== FOOTER ===================== */
   .footer{
     background: var(--color-ink);
-    color: var(--color-cream);
+    color: var(--color-kraft);
     padding: 64px 24px 32px;
   }
   .footer-grid{
@@ -820,17 +839,17 @@
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     gap:32px;
     padding-bottom:40px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-kraft) 35%, transparent);
   }
   .footer-brand .wordmark{
-    color: var(--color-cream);
-    font-size:64px;
+    color: var(--color-kraft);
+    font-size:clamp(36px, 4.4vw, 56px);
   }
-  .footer-brand p{ margin-top:12px; opacity:.75; font-size:15px; }
+  .footer-brand p{ margin-top:12px; opacity:.8; font-size:15px; }
   .footer-col h5{
+    margin:0 0 16px;
     text-transform:uppercase;
-    font-weight:700;
-    margin-bottom:16px;
+    letter-spacing:.08em;
     font-size:16px;
   }
   .footer-col ul li{ margin-bottom:10px; }
@@ -839,7 +858,7 @@
   .social-icon{
     width:36px;height:36px;
     border-radius:50%;
-    background: var(--color-cream);
+    background: var(--color-kraft);
     display:flex;align-items:center;justify-content:center;
   }
   .social-icon svg{ width:18px; height:18px; fill:var(--color-ink); }
@@ -850,7 +869,7 @@
     gap:10px;
     padding-top:24px;
     font-size:14px;
-    opacity:.7;
+    opacity:.8;
   }
 
   /* ===================== RESPONSIVE ===================== */
@@ -868,29 +887,28 @@
   }
 
   @media (max-width: 640px){
-    :root{ --section-pad: 56px; }
-    body{ font-size:17px; }
+    :root{ --section-pad: 56px; --stripe-w: 28px; }
+    body{ font-size:16px; }
     .product-grid{ grid-template-columns: 1fr; }
-    .shop-float{ top:auto; bottom:24px; right:16px; flex-direction:column; }
+    .shop-float{ top:auto; bottom:24px; right:12px; flex-direction:column; }
     .search-flyout{ right:0; top:-64px; }
     .search-flyout.open{ width: 200px; }
+    .section{ padding-left:16px; padding-right:16px; }
     .top-nav{ top:20px; left:16px; right:16px; }
     .top-nav .pill-filled{ padding:10px 16px; font-size:13px; }
+    .footer{ padding-left:16px; padding-right:16px; }
     .footer-grid{ grid-template-columns: 1fr; }
     .catering-inner{ flex-direction:column; align-items:flex-start; }
-    .hero{ padding:120px 52px 90px; }
+    .hero{ padding:120px 16px 90px; }
     .hero-tagline{ font-size:15px; margin-top:16px; }
     .hero-logo{ margin-bottom:20px; }
     .shop-side-nav{ gap:16px; flex-wrap:wrap; }
     input, select, textarea{ font-size:16px !important; }
-    .newsletter-popup{ padding:16px; }
+    .newsletter-popup{ padding:16px; right:calc(var(--stripe-w) + 8px); bottom:12px; width:calc(100vw - (var(--stripe-w) * 2) - 16px); }
     .newsletter-head{ margin-bottom:6px; }
     .newsletter-body p{ font-size:13px; margin-bottom:10px; }
-    .hero-stripe{ width:32px; top:90px; bottom:60px; height:calc(100% - 150px); opacity:.9; }
-    .hero-stripe.stripe-left{ left:8px; }
-    .hero-stripe.stripe-right{ right:8px; }
     .hero-hex{ display:none; }
-    .newsletter-popup{ right:12px; bottom:12px; width:calc(100vw - 24px); }
+    .featured-product{ padding:20px; box-shadow: 4px 4px 0 var(--color-ink); }
   }
 </style>
 </head>
@@ -904,11 +922,9 @@
   </nav>
 
   <svg class="hero-hex hex-1 hero-anim" data-hero-delay="260" viewBox="0 0 100 87" aria-hidden="true">
-    <polygon points="25,2 75,2 100,43.5 75,85 25,85 0,43.5" fill="#000" opacity="0.85"/>
+    <polygon class="svg-ink" points="25,2 75,2 100,43.5 75,85 25,85 0,43.5"/>
   </svg>
 
-  <img class="hero-stripe stripe-left hero-anim" data-hero-delay="200" src="assets/stripe.svg" alt="" aria-hidden="true">
-  <img class="hero-stripe stripe-right hero-anim" data-hero-delay="200" src="assets/stripe.svg" alt="" aria-hidden="true">
 
   <img class="hero-logo hero-anim" data-hero-delay="0" src="assets/logo.svg" alt="El Beans — Authentic Beans, est. 2020">
   <h1 class="wordmark hero-anim" data-hero-delay="60">el beans</h1>
@@ -921,7 +937,7 @@
 <section class="shop section" id="shop">
   <div class="shop-float">
     <button class="float-btn" id="searchToggle" aria-label="Search products">
-      <svg width="22" height="22" viewBox="0 0 24 24"><path fill="black" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.49 4.49 0 0 1 9.5 14"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.49 4.49 0 0 1 9.5 14"/></svg>
     </button>
     <div class="search-flyout" id="searchFlyout">
       <input type="text" id="searchInput" placeholder="Search products…" aria-label="Search products">
@@ -945,21 +961,21 @@
     <div class="featured-product">
       <div class="featured-photo-wrap">
         <svg class="featured-photo" viewBox="0 0 400 400" role="img" aria-label="Kraft paper bag of El Beans Arabica beans from Cameroon, with a black hexagon Authentic Beans stamp, surrounded by scattered roasted coffee beans">
-          <rect x="0" y="0" width="400" height="400" rx="28" fill="#c9a879"/>
-          <g fill="#2c1810">
-            <g transform="translate(58,64) rotate(-24)"><ellipse rx="17" ry="10"/><path d="M-10 0 Q0 -6 10 0 Q0 6 -10 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(340,52) rotate(18)"><ellipse rx="15" ry="9"/><path d="M-9 0 Q0 -5 9 0 Q0 5 -9 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(44,330) rotate(40)"><ellipse rx="16" ry="9"/><path d="M-9 0 Q0 -5 9 0 Q0 5 -9 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(352,344) rotate(-30)"><ellipse rx="17" ry="10"/><path d="M-10 0 Q0 -6 10 0 Q0 6 -10 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(90,190) rotate(70)"><ellipse rx="14" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(320,180) rotate(-55)"><ellipse rx="14" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(140,40) rotate(10)"><ellipse rx="13" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" fill="#c9a879" opacity=".55"/></g>
-            <g transform="translate(260,362) rotate(-8)"><ellipse rx="13" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" fill="#c9a879" opacity=".55"/></g>
+          <rect class="svg-kraft" x="0" y="0" width="400" height="400" rx="28"/>
+          <g class="svg-ink">
+            <g transform="translate(58,64) rotate(-24)"><ellipse rx="17" ry="10"/><path d="M-10 0 Q0 -6 10 0 Q0 6 -10 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(340,52) rotate(18)"><ellipse rx="15" ry="9"/><path d="M-9 0 Q0 -5 9 0 Q0 5 -9 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(44,330) rotate(40)"><ellipse rx="16" ry="9"/><path d="M-9 0 Q0 -5 9 0 Q0 5 -9 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(352,344) rotate(-30)"><ellipse rx="17" ry="10"/><path d="M-10 0 Q0 -6 10 0 Q0 6 -10 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(90,190) rotate(70)"><ellipse rx="14" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(320,180) rotate(-55)"><ellipse rx="14" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(140,40) rotate(10)"><ellipse rx="13" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" class="svg-kraft" opacity=".55"/></g>
+            <g transform="translate(260,362) rotate(-8)"><ellipse rx="13" ry="8"/><path d="M-8 0 Q0 -5 8 0 Q0 5 -8 0" class="svg-kraft" opacity=".55"/></g>
           </g>
           <g transform="translate(200,200)">
-            <polygon points="-72,-62 72,-62 122,0 72,62 -72,62 -122,0" fill="#111"/>
-            <text x="0" y="-8" text-anchor="middle" fill="#fff" font-family="Space Mono, monospace" font-size="21" font-weight="700" letter-spacing="1">EL BEANS</text>
-            <text x="0" y="18" text-anchor="middle" fill="#fff" font-family="Space Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">AUTHENTIC BEANS</text>
+            <polygon class="svg-ink" points="-72,-62 72,-62 122,0 72,62 -72,62 -122,0"/>
+            <text x="0" y="-8" text-anchor="middle" class="svg-kraft" font-size="21" letter-spacing="1">EL BEANS</text>
+            <text x="0" y="18" text-anchor="middle" class="svg-kraft" font-size="11" letter-spacing="1">AUTHENTIC BEANS</text>
           </g>
         </svg>
       </div>
@@ -1002,35 +1018,35 @@
   <div class="section-inner">
     <h2 class="section-title">What Dubai's Drinking</h2>
     <div class="testi-grid">
-      <div class="testi-card moss">
+      <div class="testi-card">
         <div class="testi-stars">
           <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
         </div>
         <div class="testi-name">Amina R.</div>
         <p class="testi-text">The Cameroon gahwa is unreal — nothing else in Dubai tastes this fresh. Roasted-to-order, you can genuinely tell.</p>
       </div>
-      <div class="testi-card kraft">
+      <div class="testi-card">
         <div class="testi-stars">
           <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
         </div>
         <div class="testi-name">Faisal K.</div>
         <p class="testi-text">Booked the coffee cart for our office launch. Guests are still talking about the flat whites. Slick, fast, and the beans are top tier.</p>
       </div>
-      <div class="testi-card moss">
+      <div class="testi-card">
         <div class="testi-stars">
           <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
         </div>
         <div class="testi-name">Sara M.</div>
         <p class="testi-text">Subscribed to the 1kg bag for the office and never looked back. Consistent, bold, never bitter. Bundle box makes a great gift too.</p>
       </div>
-      <div class="testi-card kraft">
+      <div class="testi-card">
         <div class="testi-stars">
           <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
         </div>
         <div class="testi-name">Yousef T.</div>
         <p class="testi-text">Got the Bodum press as a housewarming gift and quietly kept one for myself. Same beans, completely different ritual each morning.</p>
       </div>
-      <div class="testi-card moss">
+      <div class="testi-card">
         <div class="testi-stars">
           <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
         </div>
@@ -1049,9 +1065,9 @@
       <p>Bring El Beans to your next launch, wedding, or office morning. Our mobile coffee kiosk pours speciality espresso and gahwa on-site, brewed by our own baristas — anywhere in Dubai.</p>
       <button class="pill pill-filled" id="enquireBtn">Enquire</button>
     </div>
-    <svg width="140" height="140" viewBox="0 0 100 87" aria-hidden="true" style="flex-shrink:0;">
-      <polygon points="25,2 75,2 100,43.5 75,85 25,85 0,43.5" fill="#000"/>
-      <text x="50" y="49" text-anchor="middle" fill="#fff78f" font-family="Space Mono, monospace" font-size="11" font-weight="700">CATER</text>
+    <svg class="catering-badge" width="140" height="140" viewBox="0 0 100 87" aria-hidden="true">
+      <polygon class="svg-ink" points="25,2 75,2 100,43.5 75,85 25,85 0,43.5"/>
+      <text class="svg-kraft" x="50" y="49" text-anchor="middle" font-size="11">CATER</text>
     </svg>
   </div>
 </section>
@@ -1146,7 +1162,7 @@
     <p>New roasts, restocks, and Dubai coffee cart dates — straight to your inbox.</p>
     <form class="newsletter-form" id="newsletterForm">
       <input type="email" id="newsletterEmail" placeholder="your@email.com" required>
-      <button type="submit" class="pill pill-filled" style="font-size:14px; padding:10px 20px;">Send</button>
+      <button type="submit" class="pill pill-filled">Send</button>
     </form>
   </div>
 </div>
@@ -1332,7 +1348,7 @@
     enquireBody.innerHTML =
       '<div class="order-success">' +
         '<div class="big-check">✓</div>' +
-        '<h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:10px;">Enquiry Sent</h3>' +
+        '<h3 style="font-size:22px; text-transform:uppercase; margin-bottom:10px;">Enquiry Sent</h3>' +
         '<p>Thanks ' + name + ' — we\'ll follow up at ' + email + ' about catering for your event on ' + date + '.</p>' +
         '<button class="pill pill-filled" id="closeEnquireSuccess" style="margin-top:20px;">Close</button>' +
       '</div>';
